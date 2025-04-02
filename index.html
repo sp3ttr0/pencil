@@ -90,9 +90,14 @@
                     console.error("Invalid or missing target URL. Redirection will not happen.");
                     return;
                 }
-                
-                console.log("Redirecting to:", target);
-                window.location.href = target;  // Opens in the same tab
+                foo = window.open(target, "_blank");
+                if (foo) {
+                    console.log("Target site opened successfully:", target);
+                    setTimeout(init, 5000);
+                } else {
+                    console.error("Popup blocked or failed to open.");
+                    displayErrorMessage();
+                }
             }
 
             function displayErrorMessage() {
