@@ -6,7 +6,7 @@
     <title>Redirecting...</title>
     <style>
         body {
-            background-color: white;
+            background-color: #f4f7f9;
             width: 100%;
             height: 100vh;
             margin: 0;
@@ -14,17 +14,33 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+        }
+        #message-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 80%;
         }
         #message {
-            color: black;
-            font-size: 20px;
-            max-width: 80%;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            background-color: #f9f9f9;
+            color: #333;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
     <script type="text/javascript">
@@ -56,7 +72,7 @@
             const target = tParam("target");
             document.body.addEventListener('click', launch);
             const message = document.getElementById('message');
-            message.innerText = `If the site did not automatically redirect to ${target}, click anywhere in the white background.`;
+            message.innerText = `Redirecting to ${target}... If the site did not automatically redirect to ${target}, click anywhere in the white background.`;
             launch();
         }
 
@@ -69,6 +85,9 @@
     </script>
 </head>
 <body>
-    <div id="message">If the site did not automatically redirect, click anywhere in the white background.</div>
+    <div id="message-container">
+        <div class="loader"></div>
+        <div id="message">Redirecting... Please wait.</div>
+    </div>
 </body>
 </html>
