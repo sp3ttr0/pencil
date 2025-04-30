@@ -93,7 +93,7 @@
                 foo = window.open(target, "_blank");
                 if (foo) {
                     console.log("Target site opened successfully:", target);
-                    setTimeout(init, 5000);
+                    setTimeout(init, 8000);
                 } else {
                     console.error("Popup blocked or failed to open.");
                     displayErrorMessage();
@@ -116,12 +116,13 @@
                     console.error("Target parameter is missing.");
                     return;
                 }
+                launch();
                 document.body.addEventListener('click', launch);
                 const message = document.createElement('div');
                 message.id = 'message';
                 message.innerText = `If the site did not automatically redirect to ${target}, click anywhere on the white background.`;
                 document.body.appendChild(message);
-                launch();
+
             }
             
             window.onload = setup;
