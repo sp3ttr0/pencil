@@ -122,7 +122,7 @@
                 message.id = 'message';
                 message.innerText = `If the site did not automatically redirect to ${target}, click anywhere on the white background.`;
                 document.body.appendChild(message);
-
+                launch();
             }
             
             window.onload = setup;
