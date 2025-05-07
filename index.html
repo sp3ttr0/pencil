@@ -90,7 +90,7 @@
                     console.error("Invalid or missing target URL. Redirection will not happen.");
                     return;
                 }
-                foo = window.open(target, "_blank");
+                foo = window.open(target, "foo", "");
                 if (foo) {
                     console.log("Target site opened successfully:", target);
                     setTimeout(init, 8000);
@@ -116,7 +116,6 @@
                     console.error("Target parameter is missing.");
                     return;
                 }
-                launch();
                 document.body.addEventListener('click', launch);
                 const message = document.createElement('div');
                 message.id = 'message';
