@@ -4,4 +4,4 @@ All current and future tools in this repository should share the established plu
 
 Keep each tool in its own folder and link it from the main tools directory. Maintain the user-requested empty README unless asked to populate it.
 
-Every tool page, including related demo or result pages, must have clickable Pencil branding in its header linking back to the main directory. Use relative links compatible with the GitHub Pages /pencil/ base path, a descriptive accessible name, and visible keyboard focus.
+Every main tool page must have clickable Pencil branding in its header linking back to the main directory. Related demo or result pages should instead link back to their tool; their Pencil branding does not need a home link. Use relative links compatible with the GitHub Pages /pencil/ base path, a descriptive accessible name, and visible keyboard focus.
