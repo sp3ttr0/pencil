@@ -1,5 +1,5 @@
 *{box-sizing:border-box}
-:root{color-scheme:dark;--bg:#090710;--panel:#110d1b;--text:#7e98d1;--muted:#aaa0ba;--border:#30253f;--accent:#8063bb;--tint:#1c142b;--button-text:#fff;--cyan:#7892bf}
+:root{color-scheme:dark;--bg:#090710;--panel:#110d1b;--text:#e9e7ef;--muted:#aaa0ba;--border:#30253f;--accent:#8063bb;--tint:#1c142b;--button-text:#fff;--cyan:#7892bf}
 [data-theme="light"]{color-scheme:light;--bg:#f2edf7;--panel:#fcf9ff;--text:#24192f;--muted:#6c5b7b;--border:#d6c9e3;--accent:#694a9d;--tint:#e9dff2;--button-text:#fff;--cyan:#42679c}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
 header{padding:24px 5%;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font:700 13px ui-monospace,monospace;letter-spacing:2px}.brand-mark{color:var(--accent);font-size:22px;margin-right:14px}.brand-divider{color:var(--muted);margin:0 12px}
