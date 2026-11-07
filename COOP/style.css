@@ -28,3 +28,5 @@ input:focus-visible{outline-color:var(--cyan)}
 
 /* Shared Pencil direction: dark plum surfaces with muted purple accents. */
 .primary{background:linear-gradient(110deg,#795cb4,#60417e);border-color:#9176ab}.primary:hover{background:linear-gradient(110deg,#8568c0,#70518d)}[data-theme="light"] .primary{background:linear-gradient(110deg,#694a9d,#563671)}
+
+.brand-home{color:var(--text);text-decoration:none;display:inline-block}.brand-home:hover{color:var(--cyan)}
