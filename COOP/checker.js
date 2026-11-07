@@ -63,7 +63,7 @@ function launch() {
 window.addEventListener("message", event => {
   if (!run || event.origin !== location.origin || event.source !== run.popup ||
       event.data?.type !== "coop-landing" || event.data.token !== run.token) return;
-  status("confirmed", "Redirect confirmed", "The opened tab reached the confirmation page through the retained handle. This demonstrates navigation access for this run, not a complete vulnerability assessment.");
+  status("confirmed", "Redirect confirmed", "The opened tab reached the confirmation page through the retained handle. This demonstrates navigation access for this run. Cross-Origin-Opener-Policy may be absent or permissive; verify the response headers. For strict isolation, use Cross-Origin-Opener-Policy: same-origin.");
   cancel();
 });
 document.querySelector("#test").addEventListener("submit", event => { event.preventDefault(); launch(); });
