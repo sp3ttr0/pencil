@@ -1,6 +1,6 @@
 # Pencil design direction
 
-All current and future tools in this repository should share the established plum-purple theme. Use near-black plum backgrounds, darker violet panels, muted purple accents and readable soft white primary text. Use subtle purple gradients for primary actions. Keep the colors calm, readable, and consistent with the home page and COOP tool; avoid saturated neon backgrounds. Preserve responsive layouts, visible focus states, and readable text contrast.
+All current and future tools should use the classic pencil palette: graphite-dark backgrounds, warm yellow accents, soft white text, brushed-metal neutrals, and restrained eraser-pink details. Keep layouts responsive, colors calm, text readable, and keyboard focus visible.
 
 Keep each tool in its own folder and link it from the main tools directory. Maintain the user-requested empty README unless asked to populate it.
 
