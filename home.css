@@ -10,3 +10,9 @@
 /* Classic yellow pencil, graphite, brushed metal, eraser pink. */
 :root{--bg:#101110;--surface:#191a18;--line:#383a33;--text:#f0eee7;--muted:#aba99f;--blue:#e3bc52;--cyan:#d7c58c}
 .primary-link{background:linear-gradient(110deg,#e5c05c,#cfa338);border-color:#ebcd80;color:#201d13}.primary-link:hover{background:#edce79}.wordmark-dot,.title-period{color:#d49a9a}.front{border-color:#9d864c}.brand-icon{color:#e3bc52}
+
+/* Reserve a separate caption strip below the illustration. */
+.artifact .pencil-art{top:-35px;bottom:auto;height:100%}
+.artifact-label{bottom:0;left:0;right:28px;padding:14px 0 0;border-top:1px solid var(--line);background:var(--bg);z-index:1;font-size:10px}
+.artifact-label strong{font-size:13px;color:var(--text);line-height:1.7}
+@media(max-width:700px){.artifact .pencil-art{top:-42px;height:105%}.artifact-label{bottom:-12px;font-size:9px}.artifact-label strong{font-size:12px}.artifact-coordinates{bottom:70px}}
